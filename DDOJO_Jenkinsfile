@@ -1,0 +1,35 @@
+// Replace vars in <>
+
+stage('Generate Info') {
+    node('<YOUR_JNKS_NODE_NAME>') { 
+        withCredentials([string(credentialsId: '<YOUR_JNKS_SECRET_4_DDOJO_TKN>', variable: '<VAR_NAME>')]){
+            try {
+                    stage('Run some tool and generate output'){
+                        sh "<SOME_TOOL_COMMAND>"
+                    }
+                    stage('Deliver results'){
+                        sh "echo *************** Create engagement ****************"
+                        RESULT=sh(script: "python3 <SCRIPT_DIR>/create_engagement.py -k $<YOUR_JNKS_SECRET_4_DDOJO_TKN> -b <DDOJO_BASE_URL> -i ${BUILD_NUMBER} -j '${JOB_NAME}'", returnStdout: true)
+                        sh "echo *************** Import Scans ****************"
+                        sh "python3 <SCRIPT_DIR>/import_scan.py -k $<YOUR_JNKS_SECRET_4_DDOJO_TKN> -b <DDOJO_BASE_URL> -t '<DDOJO_SCAN_TYPE>' -f <REPORT_FILE> -e ${RESULT}"
+                    }
+            }
+            catch(err){
+                sh "echo *************** ERROR POSTING INFO ****************"
+                sh "$err"
+                stage('Creating Error Issue in Jira') {
+                    sh "echo *************** ERROR POSTING INFO ****************"
+                    def testIssue = [fields: [ project: [key: '<JIRA_PROJECT_NAME>'],
+                        summary: "New JIRA Created from Jenkins job ${JOB_NAME}",
+                        description: "${err}",
+                        issuetype: [id: '10007']]] //take a look in Jira cause this ID could change in your environment
+                
+                        response = jiraNewIssue issue: testIssue, site: '<YOUR_JNKS_JIRA_SITE>' //configure Jira site previously on Jenkins
+                
+                        echo response.successful.toString()
+                        echo response.data.toString()
+                }
+            }
+        }
+    }
+}
