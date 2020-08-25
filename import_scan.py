@@ -1,3 +1,5 @@
+                                                                                                                                                                            # This script was written by @agustincelano to be used as an integration between a Jenkins pipeline job and DefectDojo, please check args needed!                           
+
 import requests
 import argparse
 import datetime
@@ -9,7 +11,7 @@ def import_xml_test(api_key, engagement_id, test_type, scan_file, base_url):
 	}
 	data = {
 		'scan_date' : date.strftime("%Y-%m-%d"),
-		'minimum_severity' : 'Info',
+		'minimum_severity' : 'Low',
 		'active' : 'true',
 		'verified' : 'true',
 		'scan_type' : test_type,
