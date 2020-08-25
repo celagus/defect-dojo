@@ -24,7 +24,7 @@ def import_xml_test(api_key, engagement_id, test_type, scan_file, base_url):
 	print(r.text)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-b', '--base_url', metavar='base_url', type=str, help='Url example: http://10.20.30.40:8080')
+parser.add_argument('-b', '--base_url', metavar='base_url', type=str, help='Base url for DefectDojo server (example: http://10.20.30.40:8080)')
 parser.add_argument('-k', '--api_key', metavar='api_key', type=str, help='Token from DefectDojo')
 parser.add_argument('-f', '--file_name', metavar='file_name', type=str, help='File name for XML report')
 parser.add_argument('-e', '--engagement_id', metavar='engagement_id', type=int, help='Engagement number from DefectDojo')
