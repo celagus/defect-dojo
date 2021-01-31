@@ -38,4 +38,4 @@ parser.add_argument('-j', '--job_name', metavar='job_name', type=str, help='Jenk
 args = parser.parse_args()
 
 if __name__ == "__main__":
-	create_engagement(args.base_url, args.api_key, product_id, args.build_id, args.job_name)
+	create_engagement(args.base_url, args.api_key, args.product_id, args.build_id, args.job_name)
