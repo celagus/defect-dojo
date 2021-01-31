@@ -6,7 +6,7 @@ import argparse
 from datetime import datetime, timedelta
 import re
 
-def create_engagement(base_url, api_key, build_id, job_name):
+def create_engagement(base_url, api_key, product_id, build_id, job_name):
 	date_start = datetime.today()
 	date_end = datetime.today() + timedelta(30) 
 	headers = {
@@ -38,4 +38,4 @@ parser.add_argument('-j', '--job_name', metavar='job_name', type=str, help='Jenk
 args = parser.parse_args()
 
 if __name__ == "__main__":
-	create_engagement(args.base_url, args.api_key, args.build_id, args.job_name)
+	create_engagement(args.base_url, args.api_key, product_id, args.build_id, args.job_name)
