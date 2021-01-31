@@ -22,7 +22,7 @@ def create_engagement(base_url, api_key, product_id, build_id, job_name):
 		'name' : 'JenkinsVA'+str(build_id),
 		'description' : 'Jenkins job '+job_name+' build: '+str(build_id)
 	}
-	r = requests.post( url = base_url+"/api/v2/engagements/", headers=headers,data=data )
+	r = requests.post( url = base_url+"/api/v2/engagements/",headers=headers,data=data,verify=False )
 	#print(r)
 	#print(r.text)
 	x = re.search("\"id\"\:([0-9]*)", r.text)

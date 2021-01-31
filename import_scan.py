@@ -19,7 +19,7 @@ def import_xml_test(api_key, engagement_id, test_type, scan_file, base_url):
 		'close_old_findings' : 'true'	}
 	files = { "file": open(scan_file, 'r') }
 	r = requests.post(
-		url = base_url+"/api/v2/import-scan/", headers=headers,data=data,verify=Falsefiles=files)
+		url = base_url+"/api/v2/import-scan/", headers=headers,data=data,verify=False,files=files)
 	print(r)
 	print(r.text)
 
